@@ -1,20 +1,42 @@
 <div class="container">
-  <div class="input-group my-3">
-    <span class="input-group-text" id="task-input">Tarefa</span>
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Beber água"
-      aria-label="Tarefa"
-      aria-describedby="task-input"
-    />
-    <button class="btn btn-primary">Adicionar</button>
-  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-6">
+      <div class="input-group my-3">
+        <span class="input-group-text" id="task-input">Tarefa</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Beber água"
+          aria-label="Tarefa"
+          aria-describedby="task-input"
+          [(ngModel)]="taskInput"
+        />
+        <button class="btn btn-primary" (click)="addTask()">Adicionar</button>
+      </div>
 
-  <div>
-    <ul>
-      <li></li>
-    </ul>
+      <div *ngIf="tasks.length; else noTask">
+        <ul>
+          <li *ngFor="let task of tasks">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="check-{{ task.toLowerCase().replace(' ', '-') }}"
+                (change)="updateStyle($event)"
+              />
+              <label
+                class="form-check-label"
+                for="check-{{ task.toLowerCase().replace(' ', '-') }}"
+              >
+                {{ task }}
+              </label>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <ng-template #noTask>
+        <p>Adicione sua primeira tarefa.</p>
+      </ng-template>
+    </div>
   </div>
-  <p>Adicione sua primeira tarefa.</p>
 </div>
